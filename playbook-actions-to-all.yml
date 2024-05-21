@@ -1,0 +1,31 @@
+- name: make the hosts file
+  hosts: all
+  remote_user: ubuntu
+  become: true
+  tasks:
+
+    - name: create proper host file
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ item }}"
+      loop:
+        - "10.10.10.10  controller-1"
+        - "10.10.10.20  compute-1"
+        - "10.10.10.21  compute-2"
+        - "10.10.10.30  network-1"
+        - "10.10.10.40  monitoring-1"
+    
+    - name: update
+      apt:
+        update_cache: yes
+
+    - name: upgrade
+      apt:
+        upgrade: yes
+        
+    - name: set 403.online DNS
+      shell: echo "nameserver 10.202.10.202" > /etc/resolv.conf;
+
+    # - name: Reboot the system
+    #   reboot:
+    #     reboot_timeout: 300

@@ -1,0 +1,54 @@
+---
+- name: Prepare Servers to Deploy OpenStack
+  hosts: controller-1
+  remote_user: rocky
+  become: true
+  tasks:
+
+    - name: Update packages
+      dnf:
+        update_cache: yes
+
+    - name: Install needed packages for Kolla-Ansible
+      dnf:
+        name:
+          - git
+          - python3-devel
+          - python3-pip 
+          - libffi-devel
+          - gcc
+          - openssl-devel
+          - python-libselinux
+          - python3-setuptools
+          - vim
+          - ansible-core
+          - glibc-langpack-en
+        state: present
+
+    - name: Some shell commands
+      shell: echo "nameserver 10.202.10.202" > /etc/resolv.conf; mkdir -p /etc/kolla;
+
+    - name: Install kolla-ansible dependencies
+      pip:
+        name: kolla-ansible
+        state: present
+
+    - name: Upgrade ansible via pip3
+      pip:
+        name: ansible
+        state: latest
+
+    - name: Copy Kolla-Ansible configuration files
+      copy:
+        content: |
+          [DEFAULT]
+          debug = True
+          [kolla]
+          kolla_basedir = /var/lib/kolla
+          [neutron]
+          ovn_bridge_mappings = "public:br-ex"
+        dest: /etc/kolla/kolla.conf
+        mode: '0644'
+    
+    - name: Copy kolla config files
+      shell: cp /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla; 
