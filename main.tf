@@ -7,7 +7,7 @@ terraform {
 }
 
 provider "arvan" {
-  api_key = "apikey df486d58-0cd8-572a-9d01-ab1d4f9a5655"
+  api_key = "apikey xxxx-xxxx-xxxx-xxxx" // Get your ouw api-key with the right permissions. this one does not work
 }
 
 variable "region" {
