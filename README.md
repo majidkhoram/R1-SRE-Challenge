@@ -1,5 +1,5 @@
 # R1C-SRE-Challenge
-I have been directed to do a complete task and I'm going to write all my thoghts here about it.
+I have been directed to do complete a task and I'm going to write all my thoghts here about it.
 
 
 ### The challenge
