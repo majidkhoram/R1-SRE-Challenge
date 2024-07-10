@@ -1,5 +1,4 @@
-# R1C-SRE-Challenge
-I have been directed to do complete a task and I'm going to write all my thoghts here about it.
+# OpenStack Deployment Guide
 
 
 ### The challenge
